@@ -2,7 +2,7 @@
     <div class="container main">
         <div class="col-md-9">
             <ul class="breadcrumb">
-                <li><router-link to="/">首页</router-link><span class="divider"></span></li>
+                <li><nuxt-link to="/">首页</nuxt-link><span class="divider"></span></li>
                 <li class="active">关于</li>
             </ul>
             <div class="panel">
