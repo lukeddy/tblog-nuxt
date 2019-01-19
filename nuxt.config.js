@@ -60,8 +60,6 @@ module.exports = {
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
     baseURL: 'http://118.24.127.237:8080/tblog/api',
-    proxyHeaders: false,
-    credentials: false
   },
 
   /*
