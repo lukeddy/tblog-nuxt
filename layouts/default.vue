@@ -1,6 +1,8 @@
 <template>
   <div>
+    <h1>我是页头</h1>
     <nuxt />
+    <h1>我是页脚</h1>
   </div>
 </template>
 
