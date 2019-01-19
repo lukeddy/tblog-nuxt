@@ -33,19 +33,25 @@
             }
         },
         methods:{
-            addComment(){
+          async addComment(){
                 const data={
                     itemId:this.$route.params.id,
                     commentMD:this.commentValue,
                     commentHTML:this.$refs.editor.d_render
                 }
 
-                this.$store.dispatch('addComment',data).then((response) => {
-                    this.alertObj=response.data
-                    this.$emit("parentLoadComments")
-                }).catch(error => {
-                    this.alertObj={status:false,msg:error.toString()}
-                })
+              this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
+
+              try{
+                const response= await this.$axios.$post('/comment',data);
+                console.log(response);
+                if(response.status){
+                  this.$emit("parentLoadComments")
+                }
+                this.alertObj=response
+              }catch(error){
+                this.alertObj={status:false,msg:error.toString()}
+              }
             },
 
             //绑定@imgAdd event

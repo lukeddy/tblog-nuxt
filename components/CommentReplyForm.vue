@@ -34,20 +34,24 @@
             }
         },
         methods:{
-            addReply(){
+          async  addReply(){
                 const data={
                     commentId:this.$refs.commentId.value,
                     replyMD:this.replyValue,
                     replyHtml:this.$refs.editor.d_render
                 }
 
-                //console.log(data)
-                this.$store.dispatch('replyComment',data).then((response) => {
-                    this.alertObj=response.data
+                try{
+                  this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
+                  const response=await this.$axios.$post('/comment/reply',data);
+                  console.log(response);
+                  if(response.status){
                     this.$emit("parentReloadComments")
-                }).catch(error => {
-                    this.alertObj={status:false,msg:error.toString()}
-                })
+                  }
+                  this.alertObj=response;
+                }catch(error){
+                  this.alertObj={status:false,msg:error.toString()}
+                }
             },
 
             //绑定@imgAdd event
