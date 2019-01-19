@@ -1,5 +1,6 @@
 <template>
     <div class="comment" :id="comment.id">
+        <Alert v-if="alertObj" :data="alertObj"/>
         <a class="avatar" href="#" target="_blank">
             <img :src="comment.author.avatarURL" :title="comment.author.username">
         </a>
@@ -34,17 +35,20 @@
 <script>
     import CommentReply from './CommentReply'
     import CommentReplyForm from './CommentReplyForm'
+    import Alert from './Alert'
 
     export default {
         name: "CommentItem",
         props:["comment"],
         components:{
             CommentReply,
-            CommentReplyForm
+            CommentReplyForm,
+            Alert
         },
         data(){
             return{
-               currentReplyForm:null
+               currentReplyForm:null,
+               alertObj:null,
             }
         },
         methods:{
@@ -52,25 +56,31 @@
                 this.currentReplyForm=null
                 this.currentReplyForm=e.target.id
             },
-            deleteComment(commentId){
-                this.$store.dispatch('delComment', {
-                    id:commentId,
-                }).then((response) => {
-                    this.alertObj=response.data
-                    this.parentReloadComments()
-                }).catch(error => {
-                    this.alertObj={status:false,msg:error.toString()}
-                })
+            async deleteComment(commentId){
+              try{
+                this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
+                const response= await this.$axios.$delete('/comment/'+commentId,{id:commentId});
+                console.log(response);
+                if(response.status){
+                  this.parentReloadComments()
+                }
+                this.alertObj=response
+              }catch(error){
+                this.alertObj={status:false,msg:error.toString()}
+              }
             },
-            thumbsUp(commentId){
-                this.$store.dispatch('thumbsUpComment', {
-                    id:commentId,
-                }).then((response) => {
-                    this.alertObj=response.data
-                    this.$emit("parentLoadComments")
-                }).catch(error => {
-                    this.alertObj={status:false,msg:error.toString()}
-                })
+           async thumbsUp(commentId){
+              try{
+                this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
+                const response= await this.$axios.$put('/comment/thumbsup/'+commentId,{id:commentId});
+                console.log(response);
+                if(response.status){
+                  this.$emit("parentLoadComments")
+                }
+                this.alertObj=response
+              }catch(error){
+                this.alertObj={status:false,msg:error.toString()}
+              }
             },
             parentReloadComments(){
                 this.$emit("parentLoadComments")
