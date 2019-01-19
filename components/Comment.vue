@@ -32,13 +32,16 @@
             this.loadComments()
         },
         methods:{
-            loadComments(){
+           async loadComments(){
                 this.postId=this.$route.params.id
-                this.$store.dispatch('getComments',{id:this.postId}).then((response) => {
-                    this.comments=response.data.data
-                }).catch(error => {
-                    this.alertObj={status:false,msg:error.toString()}
-                })
+                console.log('postId',this.postId)
+                const response=await this.$axios.$get('/comment/public/'+this.postId);
+                console.log('comments:',response)
+                if(response.status){
+                  this.comments=response.data;
+                }else{
+                  this.alertObj={status:false,msg:response.msg}
+                }
             }
         }
     }

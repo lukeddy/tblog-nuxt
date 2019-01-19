@@ -10,8 +10,6 @@
                 </div>
                 <div class="form-group text-right">
                     <input type="hidden" ref="commentId" :value="comment.id"/>
-                    <img id="vCodeImage" src="../assets/validateCode.jpeg" onclick="javascript:reloadCommentVCode();" autocomplete="off">
-                    <input type="text" name="vcode" id="vCodeInput" class="form-control" style="display:inline-block;width:120px;margin-right:6px;" readonly="readonly">
                     <button type="button" class="btn btn-default pull-left">取消</button>
                     <button type="submit" class="btn btn-success pull-right" :disabled="replyValue==null">回复</button>
                 </div>

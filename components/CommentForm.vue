@@ -11,8 +11,6 @@
                 <div class="form-group text-right">
                     <input type="hidden" name="itemId" value="5b87dceabf578d115d2357ac">
                     <input type="hidden" name="authorId" value="5b7d59bbbf578d05d7046ef6">
-                    <img id="vCodeImage" src="../assets/validateCode.jpeg" onclick="javascript:reloadCommentVCode();" autocomplete="off">
-                    <input type="text" name="vcode" id="vCodeInput" class="form-control" style="display:inline-block;width:120px;margin-right:6px;" readonly="readonly">
                     <button type="submit" class="btn btn-success pull-right" :disabled="commentValue==null">发表评论</button>
                 </div>
             </fieldset>

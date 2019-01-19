@@ -13,7 +13,7 @@
                         </ul>
                     </div>
                     <div class="title-row">
-                        <router-link class="title" v-bind:to="'/post/'+post.id">{{post.title}}</router-link>
+                        <nuxt-link :to="`/post/${post.id}`">{{post.title}}</nuxt-link>
                     </div>
                     <div class="desc-row">{{post.desc}}</div>
                     <div class="action-row">

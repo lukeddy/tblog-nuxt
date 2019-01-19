@@ -44,7 +44,8 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/vee-validate.js'
+    { src: '~/plugins/vee-validate' },
+    { src: '~/plugins/mavon-editor' }
   ],
 
   /*
