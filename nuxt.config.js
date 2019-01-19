@@ -31,7 +31,7 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: { color: '#f00',height:'6px' },
 
   /*
   ** Global CSS
@@ -74,6 +74,7 @@ module.exports = {
     }
   },
   env: {
-    baseURL: '/nuxt'
+    baseURL: '/nuxt',
+    serverBaseUrl: 'http://118.24.127.237:8080/tblog',
   }
 }

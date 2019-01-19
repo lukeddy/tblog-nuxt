@@ -49,7 +49,7 @@
         props:['post','goToTab'],
         data(){
             return {
-                thumbBG:process.env.VUE_APP_SERVER_BASE_URL+this.post.thumbURL
+                thumbBG:process.env.serverBaseUrl+this.post.thumbURL
             }
         }
     }
