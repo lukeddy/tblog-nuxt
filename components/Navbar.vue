@@ -6,9 +6,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <router-link class="navbar-brand hidden-sm" to="/">
-              <span class="tblog-leaf-logo">&nbsp;</span>
-            </router-link>
+            <nuxt-link class="navbar-brand hidden-sm" to="/"><span class="tblog-leaf-logo">&nbsp;</span></nuxt-link>
             <form class="navbar-form pull-right" action="/tblog/search">
                 <div class="form-group hidden-xs">
                     <div class="input-group">
@@ -20,18 +18,19 @@
         </div>
         <div class="navbar-collapse collapse pull-right">
             <ul class="nav navbar-nav">
-                <li><router-link to="/">首页</router-link></li>
-                <li><router-link to="/about">关于我们</router-link></li>
-                <li v-if="loggedIn"><router-link to="/category">栏目管理</router-link></li>
-                <li v-if="loggedIn"><router-link to="/post">帖子管理</router-link></li>
-                <li v-if="!loggedIn"><router-link to="/register">注册</router-link></li>
-                <li v-if="!loggedIn"><router-link to="/login">登录</router-link></li>
-                <li v-if="loggedIn"><router-link to="/logout">退出</router-link></li>
+                <li><nuxt-link to="/">首页</nuxt-link></li>
+                <li><nuxt-link to="/about">关于我们</nuxt-link></li>
+                <li v-if="loggedIn"><nuxt-link to="/category">栏目管理</nuxt-link></li>
+                <li v-if="loggedIn"><nuxt-link to="/post">帖子管理</nuxt-link></li>
+                <li v-if="!loggedIn"><nuxt-link to="/register">注册</nuxt-link></li>
+                <li v-if="!loggedIn"><nuxt-link to="/login">登录</nuxt-link></li>
+                <li v-if="loggedIn"><nuxt-link to="/logout">退出</nuxt-link></li>
             </ul>
         </div>
     </div>
 </template>
 <script>
+
 export default {
     name:"Navbar",
     computed: {

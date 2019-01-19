@@ -2,15 +2,15 @@
     <div id="footer">
        <div id="footer-main">
         <div class="links">
-            <strong class="env">环境：{{appName}}||{{env}}</strong>
+            <strong class="env">环境：xxxx</strong>
             |
             <a class="dark" href="/tblog/rss">RSS</a>
             |
             <a href="/tblog/swagger-ui.html" target="_blank">API</a>
             |
-            <a class="dark" href="https://github.com/tzq668766/tblog/tree/origin/tblog-springboot-mongo-thymeleaf/">源码地址</a>
+            <a class="dark" href="https://github.com/tzq668766/tblog-nuxt">源码地址</a>
             | 本次构建于：
-            <a href="https://github.com/tzq668766/tblog/commit/3f1db24fbdab0e018dd1d977398060d1f62be1db" target="_blank" title="页脚添加api入口">0.0.1-2018-11-03T22:25:37+0800</a>
+            <a href="#" target="_blank" title="页脚添加api入口">0.0.1-2018-11-03T22:25:37+0800</a>
         </div>
 
         <div class="col_fade">
@@ -21,19 +21,7 @@
 </div>
 </template>
 <script>
-  import {environment} from '../environment'
-  import {app,server} from '../config/app.config'
-export default {
-    name:"Footer",
-    data(){
-        return {
-            appName:app.appName,
-            env:environment.NODE_ENV,
-            apiUrl:server.apiBaseUrl,
-            serverUrl:server.serverBaseUrl
-        }
-    }
-}
+
 </script>
 <style>
   .env{

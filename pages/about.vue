@@ -28,9 +28,8 @@
 </template>
 
 <script>
-    import Advertisement from './Advertisement'
+    import Advertisement from '../components/Advertisement'
     export default {
-        name: "About",
         components:{
             Advertisement
         }

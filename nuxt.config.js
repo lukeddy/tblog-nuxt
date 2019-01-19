@@ -3,6 +3,10 @@ const pkg = require('./package')
 module.exports = {
   mode: 'universal',
 
+  server: {
+    port: 3001, // default: 3000
+    host: '0.0.0.0', // default: localhost
+  },
   /*
   ** Headers of the page
   */
@@ -40,6 +44,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/vee-validate.js'
   ],
 
   /*
@@ -54,6 +59,9 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    baseURL: 'http://118.24.127.237:8080/tblog/api',
+    proxyHeaders: false,
+    credentials: false
   },
 
   /*
@@ -68,6 +76,6 @@ module.exports = {
     }
   },
   env: {
-
+    baseURL: '/nuxt'
   }
 }

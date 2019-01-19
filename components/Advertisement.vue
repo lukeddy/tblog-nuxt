@@ -20,17 +20,19 @@
                 <span class="col_fade">广告</span>
             </div>
             <div class="inner ads">
-                <a href="javascript:;" target="_blank" class="banner">
-                    <img src="../assets/logo.png">
-                </a>
+                <Logo/>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+  import Logo from './Logo'
     export default {
-        name: "Advertisement"
+        name: "Advertisement",
+        components:{
+          Logo
+        }
     }
 </script>
 

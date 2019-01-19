@@ -1,9 +1,9 @@
 import Vue from "vue"
 import Vuex from "vuex"
-import axios from "axios"
+import axios from '@nuxtjs/axios'
 
 Vue.use(Vuex)
-axios.defaults.baseURL=process.env.VUE_APP_API_BASE_URL
+//this.$axios.defaults.baseURL=process.env.apiUrl
 
 const store = () => new Vuex.Store({
   state:{
@@ -40,7 +40,7 @@ const store = () => new Vuex.Store({
 
     doHttpLogin(context, params) {
       return new Promise((resolve, reject) => {
-        axios.post('/login',params).then(response => {
+        this.$axios.post('/login',params).then(response => {
           if(response.data.status){
             const token = response.data.data
             localStorage.setItem('access_token', token)
@@ -55,12 +55,12 @@ const store = () => new Vuex.Store({
     },
 
     logout(context) {
-      axios.defaults.headers.common['Authorization'] = context.state.token
+      this.$axios.defaults.headers.common['Authorization'] = context.state.token
 
       if (context.getters.isLoggedIn) {
         return new Promise((resolve, reject) => {
-          //console.log(axios.defaults.headers)
-          axios.post('/logout')
+          //console.log(this.$axios.defaults.headers)
+          this.$axios.post('/logout')
             .then(response => {
               localStorage.removeItem('access_token')
               context.commit('logout')
@@ -77,9 +77,9 @@ const store = () => new Vuex.Store({
 
     getUserInfo(context) {
       return new Promise((resolve, reject) => {
-        axios.defaults.headers.common['Authorization'] = context.state.token
+        this.$axios.defaults.headers.common['Authorization'] = context.state.token
 
-        axios.get('/user/info').then(response => {
+        this.$axios.get('/user/info').then(response => {
           resolve(response)
         }).catch(error => {
           reject(error)
@@ -89,9 +89,9 @@ const store = () => new Vuex.Store({
 
     allCategory(context) {
       return new Promise((resolve, reject) => {
-        axios.defaults.headers.common['Authorization'] = context.state.token
+        this.$axios.defaults.headers.common['Authorization'] = context.state.token
 
-        axios.get('/category/all').then(response => {
+        this.$axios.get('/category/all').then(response => {
           resolve(response)
         }).catch(error => {
           reject(error)
@@ -101,9 +101,9 @@ const store = () => new Vuex.Store({
 
     listCategory(context, params) {
       return new Promise((resolve, reject) => {
-        axios.defaults.headers.common['Authorization'] = context.state.token
+        this.$axios.defaults.headers.common['Authorization'] = context.state.token
 
-        axios.post('/category/list',params).then(response => {
+        this.$axios.post('/category/list',params).then(response => {
           resolve(response)
         }).catch(error => {
           reject(error)
@@ -113,9 +113,9 @@ const store = () => new Vuex.Store({
 
     getCategory(context, params) {
       return new Promise((resolve, reject) => {
-        axios.defaults.headers.common['Authorization'] = context.state.token
+        this.$axios.defaults.headers.common['Authorization'] = context.state.token
 
-        axios.get('/category/'+params.id).then(response => {
+        this.$axios.get('/category/'+params.id).then(response => {
           resolve(response)
         }).catch(error => {
           reject(error)
@@ -125,9 +125,9 @@ const store = () => new Vuex.Store({
 
     updateCategory(context, params) {
       return new Promise((resolve, reject) => {
-        axios.defaults.headers.common['Authorization'] = context.state.token
+        this.$axios.defaults.headers.common['Authorization'] = context.state.token
 
-        axios.put('/category/'+params.id,params).then(response => {
+        this.$axios.put('/category/'+params.id,params).then(response => {
           resolve(response)
         }).catch(error => {
           reject(error)
@@ -137,9 +137,9 @@ const store = () => new Vuex.Store({
 
     addCategory(context, params) {
       return new Promise((resolve, reject) => {
-        axios.defaults.headers.common['Authorization'] = context.state.token
+        this.$axios.defaults.headers.common['Authorization'] = context.state.token
 
-        axios.post('/category/add',params).then(response => {
+        this.$axios.post('/category/add',params).then(response => {
           resolve(response)
         }).catch(error => {
           reject(error)
@@ -149,9 +149,9 @@ const store = () => new Vuex.Store({
 
     listPost(context, params) {
       return new Promise((resolve, reject) => {
-        axios.defaults.headers.common['Authorization'] = context.state.token
+        this.$axios.defaults.headers.common['Authorization'] = context.state.token
 
-        axios.post('/post/list',params).then(response => {
+        this.$axios.post('/post/list',params).then(response => {
           resolve(response)
         }).catch(error => {
           reject(error)
@@ -161,9 +161,9 @@ const store = () => new Vuex.Store({
 
     addPost(context, params) {
       return new Promise((resolve, reject) => {
-        axios.defaults.headers.common['Authorization'] = context.state.token
+        this.$axios.defaults.headers.common['Authorization'] = context.state.token
 
-        axios.post('/post',params).then(response => {
+        this.$axios.post('/post',params).then(response => {
           resolve(response)
         }).catch(error => {
           reject(error)
@@ -173,7 +173,7 @@ const store = () => new Vuex.Store({
 
     getPost(context, params) {
       return new Promise((resolve, reject) => {
-        axios.get('/post/detail/'+params.id).then(response => {
+        this.$axios.get('/post/detail/'+params.id).then(response => {
           resolve(response)
         }).catch(error => {
           reject(error)
@@ -183,9 +183,9 @@ const store = () => new Vuex.Store({
 
     updatePost(context, params) {
       return new Promise((resolve, reject) => {
-        axios.defaults.headers.common['Authorization'] = context.state.token
+        this.$axios.defaults.headers.common['Authorization'] = context.state.token
 
-        axios.put('/post/'+params.id,params).then(response => {
+        this.$axios.put('/post/'+params.id,params).then(response => {
           resolve(response)
         }).catch(error => {
           reject(error)
@@ -195,9 +195,9 @@ const store = () => new Vuex.Store({
 
     delPost(context, params) {
       return new Promise((resolve, reject) => {
-        axios.defaults.headers.common['Authorization'] = context.state.token
+        this.$axios.defaults.headers.common['Authorization'] = context.state.token
 
-        axios.delete('/post/'+params.id,params).then(response => {
+        this.$axios.delete('/post/'+params.id,params).then(response => {
           resolve(response)
         }).catch(error => {
           reject(error)
@@ -207,7 +207,7 @@ const store = () => new Vuex.Store({
 
     getComments(context, params) {
       return new Promise((resolve, reject) => {
-        axios.get('/comment/public/'+params.id).then(response => {
+        this.$axios.get('/comment/public/'+params.id).then(response => {
           resolve(response)
         }).catch(error => {
           reject(error)
@@ -216,9 +216,9 @@ const store = () => new Vuex.Store({
     },
     addComment(context, params) {
       return new Promise((resolve, reject) => {
-        axios.defaults.headers.common['Authorization'] = context.state.token
+        this.$axios.defaults.headers.common['Authorization'] = context.state.token
 
-        axios.post('/comment',params).then(response => {
+        this.$axios.post('/comment',params).then(response => {
           resolve(response)
         }).catch(error => {
           reject(error)
@@ -227,9 +227,9 @@ const store = () => new Vuex.Store({
     },
     replyComment(context, params) {
       return new Promise((resolve, reject) => {
-        axios.defaults.headers.common['Authorization'] = context.state.token
+        this.$axios.defaults.headers.common['Authorization'] = context.state.token
 
-        axios.post('/comment/reply',params).then(response => {
+        this.$axios.post('/comment/reply',params).then(response => {
           resolve(response)
         }).catch(error => {
           reject(error)
@@ -238,9 +238,9 @@ const store = () => new Vuex.Store({
     },
     thumbsUpComment(context, params) {
       return new Promise((resolve, reject) => {
-        axios.defaults.headers.common['Authorization'] = context.state.token
+        this.$axios.defaults.headers.common['Authorization'] = context.state.token
 
-        axios.put('/comment/thumbsup/'+params.id,params).then(response => {
+        this.$axios.put('/comment/thumbsup/'+params.id,params).then(response => {
           resolve(response)
         }).catch(error => {
           reject(error)
@@ -249,9 +249,9 @@ const store = () => new Vuex.Store({
     },
     delComment(context, params) {
       return new Promise((resolve, reject) => {
-        axios.defaults.headers.common['Authorization'] = context.state.token
+        this.$axios.defaults.headers.common['Authorization'] = context.state.token
 
-        axios.delete('/comment/'+params.id,params).then(response => {
+        this.$axios.delete('/comment/'+params.id,params).then(response => {
           resolve(response)
         }).catch(error => {
           reject(error)
@@ -261,13 +261,13 @@ const store = () => new Vuex.Store({
 
     uploadFile(context, params) {
       return new Promise((resolve, reject) => {
-        axios.defaults.headers.common['Authorization'] = context.state.token
+        this.$axios.defaults.headers.common['Authorization'] = context.state.token
 
         const headers={
           headers: { 'Content-Type': 'multipart/form-data' },
         }
 
-        axios.post('/upload/file',params,headers).then(response => {
+        this.$axios.post('/upload/file',params,headers).then(response => {
           resolve(response)
         }).catch(error => {
           reject(error)
