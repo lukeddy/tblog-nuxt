@@ -22,6 +22,7 @@
                 <li><nuxt-link to="/about">关于我们</nuxt-link></li>
                 <li v-if="loggedIn"><nuxt-link to="/category">栏目管理</nuxt-link></li>
                 <li v-if="loggedIn"><nuxt-link to="/post">帖子管理</nuxt-link></li>
+                <li v-if="loggedIn"><nuxt-link to="/protected">私有资源</nuxt-link></li>
                 <li v-if="!loggedIn"><nuxt-link to="/register">注册</nuxt-link></li>
                 <li v-if="!loggedIn"><nuxt-link to="/login">登录</nuxt-link></li>
                 <li v-if="loggedIn"><nuxt-link to="/logout">退出</nuxt-link></li>
@@ -30,7 +31,6 @@
     </div>
 </template>
 <script>
-
 export default {
     name:"Navbar",
     computed: {

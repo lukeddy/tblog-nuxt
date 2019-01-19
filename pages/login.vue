@@ -61,24 +61,29 @@
       }
     },
     methods:{
-      login() {
-        console.log('bbbbbbccc')
-        this.$validator.validateAll().then((result) => {
-          if (result) {
-            this.$axios.post('/login',params).then(response => {
-              if(response.data.status){
-                console.log(response.data)
-                const token = response.data.data
-                localStorage.setItem('access_token', token)
-                //context.commit('saveTokenToLocal', token)
-              }
-              this.alertObj=response.data
-            }).catch(error => {
-              this.alertObj={status:false,msg:error.toString()}
-            })
+      async login() {
+        const result= await this.$validator.validateAll();
+        if(result){
+          try {
+            const params={
+              username: this.username,
+              password: this.password
+            }
+            const response = await this.$axios.$post('/login',params)
+            console.log(response)
+            this.alertObj=response;
+            if(response.status){
+              console.log(response.data)
+              this.$store.commit('setToken',response.data)
+              this.$router.push('/')
+            }
+          } catch (e) {
+            console.log(e)
+            this.alertObj={status:false,msg:e.message}
           }
+        }else{
           this.alertObj={status:false,msg:"请输入账号信息"}
-        });
+        }
       },
     }
   }
