@@ -75,7 +75,6 @@ module.exports = {
     }
   },
   env: {
-    baseURL: '/nuxt',
     serverBaseUrl: 'http://118.24.127.237:8080/tblog',
   }
 }

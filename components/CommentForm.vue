@@ -49,7 +49,7 @@
                 }
                 this.alertObj=response
               }catch(error){
-                this.alertObj={status:false,msg:error.toString()}
+                this.alertObj={status:false,msg:error.message}
               }
             },
 

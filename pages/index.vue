@@ -1,6 +1,7 @@
 <template>
   <div class="container main">
     <div class="col-md-9">
+      <Alert v-if="alertObj" :data="alertObj"/>
       <div class="panel">
         <Menu :cat-list="catList" v-on:parentChangeTab="changeTab"></Menu>
         <div class="inner no-padding">
@@ -15,10 +16,12 @@
   import Advertisement from '../components/Advertisement'
   import Menu from "../components/Menu";
   import PostList from "../components/PostList";
+  import Alert from '../components/Alert'
 
   export default {
     components: {
       Advertisement,
+      Alert,
       Menu,
       PostList,
     },
@@ -40,14 +43,18 @@
           pageNO: pageNo,
           tab:tab
         }
-        const response = await this.$axios.$post('/home',params)
-        console.log(response)
-        if(response.status){
-          this.catList=response.data.catList
-          this.pager=response.data.pager
-          this.currentTab=response.data.indexVo.tab
-        }else{
-          this.alertObj={status:false,msg:response.msg}
+        try{
+            const response = await this.$axios.$post('/home',params)
+            console.log(response)
+            if(response.status){
+              this.catList=response.data.catList
+              this.pager=response.data.pager
+              this.currentTab=response.data.indexVo.tab
+            }else{
+              this.alertObj=response
+            }
+        }catch(error){
+          this.alertObj={status:false,msg:error.message}
         }
       },
       changeTab(tab){
