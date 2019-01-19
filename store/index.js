@@ -27,7 +27,10 @@ const index = () => new Vuex.Store({
   },
 
   actions: {
-    //...
+    async logout({ commit }) {
+     // await axios.post('/api/logout')
+      commit('setToken', null)
+    }
   }
 
 })
