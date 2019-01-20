@@ -2,8 +2,8 @@
     <div class="container main">
         <div class="col-md-9">
             <ul class="breadcrumb">
-                <li><router-link to="/">首页</router-link><span class="divider"></span></li>
-                <li><router-link to="/post">帖子管理</router-link><span class="divider"></span></li>
+                <li><nuxt-link to="/">首页</nuxt-link><span class="divider"></span></li>
+                <li><nuxt-link to="/admin/post">帖子管理</nuxt-link><span class="divider"></span></li>
                 <li class="active">新建帖子</li>
             </ul>
             <div class="panel">
@@ -90,7 +90,7 @@
 </template>
 
 <script>
-    import Alert from '../Alert'
+    import Alert from '../../components/Alert'
     import vue2Dropzone from 'vue2-dropzone'
     import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 
@@ -118,7 +118,7 @@
                 good:false,
                 alertObj:null,
                 dropzoneOptions: {
-                    url: process.env.VUE_APP_API_BASE_URL+'/upload/file',
+                    url: process.env.apiBaseUrl+'/upload/file',
                     paramName:"file",
                     acceptedFiles:"image/png,image/jpg,image/jpeg",
                     autoDiscover:false,
@@ -134,71 +134,142 @@
             }
         },
         mounted:function(){
-            this.$store.dispatch('allCategory').then((response) => {
-                this.allCategory=response.data.data
-            }).catch(error => {
-                this.alertObj={status:false,msg:error.toString()}
-            })
-
-            this.$store.dispatch('getUserInfo').then((response) => {
-                this.authorId=response.data.data.uid
-                this.authorName=response.data.data.username
-            }).catch(error => {
-                this.alertObj={status:false,msg:error.toString()}
-            })
-
+          this.initData()
         },
         methods:{
-            addPost(){
-                this.$validator.validateAll().then((result) => {
-                    if (result) {
-                        // this.loading = true
-                        this.$store.dispatch('addPost', {
-                            authorId:this.authorId,
-                            authorName:this.authorName,
-                            catId:this.catId,
-                            title: this.title,
-                            desc: this.desc,
-                            tags:this.tags,
-                            thumbURL:this.thumbURL,
-                            contentMD:this.contentMD,
-                            contentHTML:this.$refs.editor.d_render,
-                            contentIsHTML:this.contentIsHTML,
-                            top:this.top,
-                            good:this.good,
-                        })
-                            .then((response) => {
-                                //console.log(response.data)
-                                this.alertObj=response.data
-                            })
-                            .catch(error => {
-                                //this.loading = false
-                                this.alertObj={status:false,msg:error.toString()}
-                            })
+            async initData(){
+              this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
+              try{
+                const response=await this.$axios.$get('/category/all');
+                console.log('all category:', response)
+                if(response.status){
+                  this.allCategory=response.data
+                }else{
+                  this.alertObj=response
+                }
+              }catch(error){
+                this.alertObj={status:false,msg:error.message}
+              }
 
-                        return;
-                    }
-                    this.alertObj={status:false,msg:"请输入帖子信息"}
-                });
+              try{
+                const response=await this.$axios.$get('/user/info');
+                console.log('userinfo:', response)
+                if(response.status){
+                  this.authorId=response.data.uid
+                  this.authorName=response.data.username
+                }else{
+                  this.alertObj=response
+                }
+              }catch(error){
+                this.alertObj={status:false,msg:error.message}
+              }
+              // this.$store.dispatch('allCategory').then((response) => {
+              //     this.allCategory=response.data.data
+              // }).catch(error => {
+              //     this.alertObj={status:false,msg:error.toString()}
+              // })
+
+              // this.$store.dispatch('getUserInfo').then((response) => {
+              //     this.authorId=response.data.data.uid
+              //     this.authorName=response.data.data.username
+              // }).catch(error => {
+              //     this.alertObj={status:false,msg:error.toString()}
+              // })
             },
-            uploadImage(pos, $file){
+            async addPost(){
+                const result=this.$validator.validateAll()
+                if(result){
+                  try{
+                    this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
+                    const params={
+                          authorId:this.authorId,
+                          authorName:this.authorName,
+                          catId:this.catId,
+                          title: this.title,
+                          desc: this.desc,
+                          tags:this.tags,
+                          thumbURL:this.thumbURL,
+                          contentMD:this.contentMD,
+                          contentHTML:this.$refs.editor.d_render,
+                          contentIsHTML:this.contentIsHTML,
+                          top:this.top,
+                          good:this.good,
+                      }
+                    const response=await this.$axios.$post('/post',params);
+                    if(response.status){
+                      //TODO 成功过后清空表单数据
+                    }
+                    this.alertObj=response
+                  }catch(error){
+                    this.alertObj={status:false,msg:error.message}
+                  }
+                }else{
+                  this.alertObj={status:false,msg:"请输入帖子信息"}
+                }
+                // this.$validator.validateAll().then((result) => {
+                //     if (result) {
+                //         // this.loading = true
+                //         this.$store.dispatch('addPost', {
+                //             authorId:this.authorId,
+                //             authorName:this.authorName,
+                //             catId:this.catId,
+                //             title: this.title,
+                //             desc: this.desc,
+                //             tags:this.tags,
+                //             thumbURL:this.thumbURL,
+                //             contentMD:this.contentMD,
+                //             contentHTML:this.$refs.editor.d_render,
+                //             contentIsHTML:this.contentIsHTML,
+                //             top:this.top,
+                //             good:this.good,
+                //         })
+                //             .then((response) => {
+                //                 //console.log(response.data)
+                //                 this.alertObj=response.data
+                //             })
+                //             .catch(error => {
+                //                 //this.loading = false
+                //                 this.alertObj={status:false,msg:error.toString()}
+                //             })
+                //
+                //         return;
+                //     }
+                //     this.alertObj={status:false,msg:"请输入帖子信息"}
+                // });
+            },
+           async uploadImage(pos, $file){
+                 console.log('editor upload img')
                 //第一步.将图片上传到服务器.
                 const data = new FormData();
                 data.append('file', $file);
 
-                this.$store.dispatch('uploadFile',data).then((response) => {
-                    //console.log(response.data)
-                    //第二步.将返回的url替换到文本原位置![...](./0) -> ![...](url)
-                    this.$refs.editor.$img2Url(pos,process.env.VUE_APP_SERVER_BASE_URL+response.data.data);
-                }).catch(error => {
-                    this.alertObj={status:false,msg:error.toString()}
-                })
+               try{
+                 this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
+                 const headers={
+                   headers: { 'Content-Type': 'multipart/form-data' },
+                 }
+                 const response=await this.$axios.$post('/upload/file',data,headers)
+                 if(response.status){
+                   //第二步.将返回的url替换到文本原位置![...](./0) -> ![...](url)
+                   this.$refs.editor.$img2Url(pos,process.env.serverBaseUrl+response.data);
+                 }
+               }catch (e) {
+                 this.alertObj={status:false,msg:e.message}
+               }
+
+                // this.$store.dispatch('uploadFile',data).then((response) => {
+                //     //console.log(response.data)
+                //     //第二步.将返回的url替换到文本原位置![...](./0) -> ![...](url)
+                //     this.$refs.editor.$img2Url(pos,process.env.apiBaseUrl+response.data.data);
+                // }).catch(error => {
+                //     this.alertObj={status:false,msg:error.toString()}
+                // })
             },
             dropzoneSuccess(file,response){
                 this.alertObj=response
                 if(response.status==true){
                     this.thumbURL=response.data
-                    this.thumbBG=process.env.VUE_APP_SERVER_BASE_URL+this.thumbURL
+                    this.thumbBG=process.env.serverBaseUrl+this.thumbURL
                     this.$refs.myDropZone.removeFile(file);
                 }
             }

@@ -11,7 +11,7 @@
                     <Alert v-if="alertObj" :data="alertObj"/>
                     <div class="topic_content">
                         <div class="markdown-text">
-                            <h3>帖子列表 <router-link to="/postadd">新增</router-link>  </h3>
+                            <h3>帖子列表 <router-link to="/admin/postadd">新增</router-link>  </h3>
                             <table v-if="pager!=null&&pager.totalPages>0" class="table">
                                 <tbody><tr>
                                     <th>帖子标题</th>

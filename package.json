@@ -16,7 +16,8 @@
     "cross-env": "^5.2.0",
     "mavon-editor": "^2.6.17",
     "nuxt": "^2.3.4",
-    "vee-validate": "^2.1.5"
+    "vee-validate": "^2.1.5",
+    "vue2-dropzone": "^3.5.2"
   },
   "devDependencies": {
     "nodemon": "^1.18.9"

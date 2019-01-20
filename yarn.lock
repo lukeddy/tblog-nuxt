@@ -2544,6 +2544,11 @@ dot-prop@^4.1.0, dot-prop@^4.1.1:
   dependencies:
     is-obj "^1.0.0"
 
+dropzone@^5.5.0:
+  version "5.5.1"
+  resolved "http://registry.npm.taobao.org/dropzone/download/dropzone-5.5.1.tgz#06e2f513e61d6aa363d4b556f18574f47cf7ba26"
+  integrity sha1-BuL1E+YdaqNj1LVW8YV09Hz3uiY=
+
 duplexer3@^0.1.4:
   version "0.1.4"
   resolved "http://registry.npm.taobao.org/duplexer3/download/duplexer3-0.1.4.tgz#ee01dd1cac0ed3cbc7fdbea37dc0a8f1ce002ce2"
@@ -6725,6 +6730,13 @@ vue-template-es2015-compiler@^1.6.0:
   version "1.8.1"
   resolved "http://registry.npm.taobao.org/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.8.1.tgz#e2ec4f42d16b6c712e61899c6b20bcdb1df128ca"
   integrity sha1-4uxPQtFrbHEuYYmcayC82x3xKMo=
+
+vue2-dropzone@^3.5.2:
+  version "3.5.2"
+  resolved "http://registry.npm.taobao.org/vue2-dropzone/download/vue2-dropzone-3.5.2.tgz#602630b1577d861810555646b72338de69feebe2"
+  integrity sha1-YCYwsVd9hhgQVVZGtyM43mn+6+I=
+  dependencies:
+    dropzone "^5.5.0"
 
 vue@^2.5.17:
   version "2.5.22"
