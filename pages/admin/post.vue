@@ -28,7 +28,7 @@
                                     <td>{{post.createAtFormatted}}</td>
                                     <td>{{post.updateAtFormatted}}</td>
                                     <td>
-                                        <router-link v-bind:to="'/postedit/'+post.id">修改</router-link>&nbsp;
+                                        <nuxt-link v-bind:to="'/admin/postedit/'+post.id">修改</nuxt-link>&nbsp;
                                         <a @click="deletePost(post.id)">删除</a>
                                     </td>
                                 </tr>

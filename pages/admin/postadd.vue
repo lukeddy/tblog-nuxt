@@ -163,18 +163,6 @@
               }catch(error){
                 this.alertObj={status:false,msg:error.message}
               }
-              // this.$store.dispatch('allCategory').then((response) => {
-              //     this.allCategory=response.data.data
-              // }).catch(error => {
-              //     this.alertObj={status:false,msg:error.toString()}
-              // })
-
-              // this.$store.dispatch('getUserInfo').then((response) => {
-              //     this.authorId=response.data.data.uid
-              //     this.authorName=response.data.data.username
-              // }).catch(error => {
-              //     this.alertObj={status:false,msg:error.toString()}
-              // })
             },
             async addPost(){
                 const result=this.$validator.validateAll()
