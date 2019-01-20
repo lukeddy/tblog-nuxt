@@ -118,7 +118,7 @@
                 good:false,
                 alertObj:null,
                 dropzoneOptions: {
-                    url: process.env.apiBaseUrl+'/upload/file',
+                    url: process.env.serverApiUrl+'/upload/file',
                     paramName:"file",
                     acceptedFiles:"image/png,image/jpg,image/jpeg",
                     autoDiscover:false,
@@ -206,36 +206,6 @@
                 }else{
                   this.alertObj={status:false,msg:"请输入帖子信息"}
                 }
-                // this.$validator.validateAll().then((result) => {
-                //     if (result) {
-                //         // this.loading = true
-                //         this.$store.dispatch('addPost', {
-                //             authorId:this.authorId,
-                //             authorName:this.authorName,
-                //             catId:this.catId,
-                //             title: this.title,
-                //             desc: this.desc,
-                //             tags:this.tags,
-                //             thumbURL:this.thumbURL,
-                //             contentMD:this.contentMD,
-                //             contentHTML:this.$refs.editor.d_render,
-                //             contentIsHTML:this.contentIsHTML,
-                //             top:this.top,
-                //             good:this.good,
-                //         })
-                //             .then((response) => {
-                //                 //console.log(response.data)
-                //                 this.alertObj=response.data
-                //             })
-                //             .catch(error => {
-                //                 //this.loading = false
-                //                 this.alertObj={status:false,msg:error.toString()}
-                //             })
-                //
-                //         return;
-                //     }
-                //     this.alertObj={status:false,msg:"请输入帖子信息"}
-                // });
             },
            async uploadImage(pos, $file){
                  console.log('editor upload img')
@@ -256,14 +226,6 @@
                }catch (e) {
                  this.alertObj={status:false,msg:e.message}
                }
-
-                // this.$store.dispatch('uploadFile',data).then((response) => {
-                //     //console.log(response.data)
-                //     //第二步.将返回的url替换到文本原位置![...](./0) -> ![...](url)
-                //     this.$refs.editor.$img2Url(pos,process.env.apiBaseUrl+response.data.data);
-                // }).catch(error => {
-                //     this.alertObj={status:false,msg:error.toString()}
-                // })
             },
             dropzoneSuccess(file,response){
                 this.alertObj=response

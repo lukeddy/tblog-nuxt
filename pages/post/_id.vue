@@ -134,8 +134,9 @@
   .topic-content {
     margin: 0 10px
   }
-  .topic-content img{
-    display: block;
+  .topic-content img,
+  .editormd-preview-container img{
+    display: inline-block;
     max-width:100%;
     height: auto;
   }
