@@ -53,6 +53,19 @@
       Advertisement,
       Alert,
     },
+    head() {
+      return {
+        title:'登录页',
+        meta: [
+          {
+            hid: 'keywords',
+            name: 'keywords',
+            content:'登录'
+          },
+          { hid: 'description', name: 'description', content: '登录页' }
+        ]
+      }
+    },
     data(){
       return {
         username: '',

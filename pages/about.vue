@@ -32,6 +32,14 @@
     export default {
         components:{
             Advertisement
+        },
+        head () {
+          return {
+            title: '关于我们-tblog',
+            meta: [
+              { hid: 'description', name: 'description', content: '关于我们' }
+            ]
+          }
         }
     }
 </script>

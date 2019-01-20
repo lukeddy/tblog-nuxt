@@ -62,16 +62,31 @@
       Comment,
       Alert
     },
+    validate ({ params }) {
+      //验证是否合规的ID
+      return /^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i.test(params.id)
+    },
+    head() {
+      const post = this.post
+      return {
+        title:post?(post.title || 'tblog文章标题'):'',
+        meta: [
+          {
+            hid: 'keywords',
+            name: 'keywords',
+            content:post?((post.tags ? post.tags.join(',') : post.title) || ''):''
+          },
+          { hid: 'description', name: 'description', content: post?post.desc:'' }
+        ]
+      }
+    },
     data(){
       return {
         post:null,
         alertObj:null,
       }
     },
-    validate ({ params }) {
-      //验证是否合规的ID
-      return /^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i.test(params.id)
-    },
+
     mounted:function () {
       const {id}=this.$route.params
       this.loadData(id);
