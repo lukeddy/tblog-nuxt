@@ -3,7 +3,7 @@
         <Advertisement/>
         <div class="col-md-9">
             <ul class="breadcrumb">
-                <li><router-link to="/">首页</router-link><span class="divider"></span></li>
+                <li><nuxt-link to="/">首页</nuxt-link><span class="divider"></span></li>
                 <li class="active">栏目管理</li>
             </ul>
             <div class="panel">
@@ -44,9 +44,9 @@
 </template>
 
 <script>
-    import Advertisement from '../Advertisement'
-    import Alert from '../Alert'
-    import Pagination from '../common/Pagination'
+    import Advertisement from '../../components/Advertisement'
+    import Alert from '../../components/Alert'
+    import Pagination from '../../components/common/Pagination'
 
     export default {
         name: "Category",
@@ -62,26 +62,26 @@
             }
         },
         mounted:function(){
-            this.$store.dispatch('listCategory', {
-                pageNO: 1,
-            }).then((response) => {
-                this.pager=response.data.data
-            })
-            .catch(error => {
-                this.alertObj={status:false,msg:error.toString()}
-            })
-
+          this.loadCategoryList(1)
         },
         methods:{
+            async loadCategoryList(currentPageNo){
+              try{
+                this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
+                const params={
+                  pageNO:currentPageNo
+                }
+                const response=await this.$axios.$post('/category/list',params);
+               // console.log('categorys:',response)
+                if(response.status){
+                  this.pager=response.data
+                }
+              }catch(error){
+                this.alertObj={status:false,msg:error.message}
+              }
+            },
             jumpPage(pageNo){
-                this.$store.dispatch('listCategory', {
-                    pageNO: pageNo,
-                }).then((response) => {
-                    this.pager=response.data.data
-                })
-                .catch(error => {
-                    this.alertObj={status:false,msg:error.toString()}
-                })
+                this.loadCategoryList(pageNo)
             }
         }
     }

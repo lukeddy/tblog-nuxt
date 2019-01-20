@@ -37,7 +37,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="thumb-box" :style="{backgroundSize: 'cover',backgroundImage:'url('+thumbBG+')'}"></div>
+                <div v-if="post.thumbURL" class="thumb-box" :style="{backgroundSize: 'cover',backgroundImage:'url('+thumbBG+')'}"></div>
             </div>
         </div>
     </li>

@@ -1,5 +1,7 @@
 const pkg = require('./package')
 
+const isDevMode=process.env.NODE_ENV === 'development'
+
 module.exports = {
   mode: 'universal',
 
@@ -8,7 +10,7 @@ module.exports = {
     host: '0.0.0.0', // default: localhost
   },
   router: {
-    base: process.env.NODE_ENV === 'development' ? '/' : '/nuxt/',
+    base: isDevMode ? '/' : '/nuxt/',
   },
   /*
   ** Headers of the page
@@ -63,7 +65,7 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    baseURL: 'http://118.24.127.237:8080/tblog/api',
+    baseURL:isDevMode ? 'http://localhost:8080/tblog/api':'http://118.24.127.237:8080/tblog/api'
   },
 
   /*
@@ -80,6 +82,6 @@ module.exports = {
   env: {
     appName:pkg.name,
     serverEnv:process.env.NODE_ENV,
-    serverBaseUrl: 'http://118.24.127.237:8080/tblog',
+    serverBaseUrl:isDevMode? 'http://localhost:8080/tblog':'http://118.24.127.237:8080/tblog',
   }
 }
