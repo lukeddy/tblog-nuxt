@@ -138,7 +138,7 @@
         },
         methods:{
             async initData(){
-              this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
+              //this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
               try{
                 const response=await this.$axios.$get('/category/all');
                 console.log('all category:', response)
@@ -168,7 +168,7 @@
                 const result=this.$validator.validateAll()
                 if(result){
                   try{
-                    this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
+                    //this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
                     const params={
                           authorId:this.authorId,
                           authorName:this.authorName,
@@ -202,7 +202,7 @@
                 data.append('file', $file);
 
                try{
-                 this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
+                 //this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
                  const headers={
                    headers: { 'Content-Type': 'multipart/form-data' },
                  }

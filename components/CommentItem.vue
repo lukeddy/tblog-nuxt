@@ -58,7 +58,7 @@
             },
             async deleteComment(commentId){
               try{
-                this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
+                //this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
                 const response= await this.$axios.$delete('/comment/'+commentId,{id:commentId});
                 console.log(response);
                 if(response.status){
@@ -71,7 +71,7 @@
             },
            async thumbsUp(commentId){
               try{
-                this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
+                //this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
                 const response= await this.$axios.$put('/comment/thumbsup/'+commentId,{id:commentId});
                 console.log(response);
                 if(response.status){

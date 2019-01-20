@@ -70,7 +70,7 @@
         methods:{
            async loadData(pageNumber){
               try{
-                this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
+                //this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
                 const params={
                   pageNO:pageNumber
                 }
@@ -85,7 +85,7 @@
             },
            async deletePost(postId){
               try{
-                this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
+                //this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
                 const params={
                   id:postId
                 }
@@ -96,15 +96,6 @@
               }catch(error){
                 this.alertObj={status:false,msg:error.message}
               }
-                // this.$store.dispatch('delPost', {
-                //     id:postId,
-                // }).then((response) => {
-                //     this.alertObj=response.data
-                //     this.loadData()
-                // }).catch(error => {
-                //     this.alertObj={status:false,msg:error.toString()}
-                // })
-
             },
             jumpPage(pageNo){
                 this.loadData(pageNo)

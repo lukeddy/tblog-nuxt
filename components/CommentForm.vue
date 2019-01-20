@@ -41,7 +41,7 @@
                 }
 
               try{
-                this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
+                //this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
                 const response= await this.$axios.$post('/comment',data);
                 console.log(response);
                 if(response.status){

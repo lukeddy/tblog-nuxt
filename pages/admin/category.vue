@@ -67,7 +67,7 @@
         methods:{
             async loadCategoryList(currentPageNo){
               try{
-                this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
+                //this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
                 const params={
                   pageNO:currentPageNo
                 }

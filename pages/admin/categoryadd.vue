@@ -72,7 +72,7 @@
                 const result=await this.$validator.validateAll();
                 if(result){
                   try{
-                    this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
+                    //this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
                     const params={
                       catName: this.catName,
                       catDir: this.catDir,

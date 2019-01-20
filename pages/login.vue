@@ -88,6 +88,7 @@
             if(response.status){
               console.log(response.data)
               this.$store.commit('setToken',response.data)
+              this.$axios.setToken(response.data)
               this.$router.push('/')
             }
           } catch (e) {

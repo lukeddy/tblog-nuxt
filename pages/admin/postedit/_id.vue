@@ -1,12 +1,12 @@
 <template>
   <div class="container main">
-    <div v-if="post" class="col-md-9">
+    <div class="col-md-9">
       <ul class="breadcrumb">
         <li><nuxt-link to="/">首页</nuxt-link><span class="divider"></span></li>
         <li><nuxt-link to="/admin/post">帖子管理</nuxt-link><span class="divider"></span></li>
         <li class="active">修改帖子</li>
       </ul>
-      <div class="panel">
+      <div v-if="post" class="panel">
         <div class="inner">
           <Alert v-if="alertObj" :data="alertObj"/>
           <h3>修改帖子</h3>
@@ -129,7 +129,7 @@
     methods:{
       async initPost(postId){
 
-        this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
+        //this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
 
         try{
           const response=await this.$axios.$get('/post/detail/'+postId);
@@ -160,7 +160,7 @@
      async editPost(){
         const result=await this.$validator.validateAll()
         if(result){
-          this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
+          //this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
           const params={
               id:this.post.id,
               authorId:this.post.author.id,
@@ -190,7 +190,7 @@
         data.append('file', $file);
 
         try{
-          this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
+          //this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
           const headers={
             headers: { 'Content-Type': 'multipart/form-data' },
           }

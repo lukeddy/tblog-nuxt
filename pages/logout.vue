@@ -5,8 +5,9 @@
 <script>
     export default {
         created() {
-            this.$store.dispatch('logout');
-            this.$router.push('/login');
+            this.$store.dispatch('logout')
+            this.$router.push('/login')
+            this.$axios.setToken(null)
         }
     }
 </script>

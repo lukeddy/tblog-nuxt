@@ -77,7 +77,7 @@
     methods:{
       async initData(catId){
         try{
-          this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
+          //this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
           const response=await this.$axios.$get('/category/'+catId);
           //console.log('category:', response)
           if(response.status){
@@ -93,7 +93,7 @@
         const result=await this.$validator.validateAll()
         if(result){
           try{
-            this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
+            //this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
             const params={
                     id:this.category.id,
                     catName: this.category.catName,
