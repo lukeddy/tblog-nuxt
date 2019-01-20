@@ -7,6 +7,9 @@ module.exports = {
     port: 3003, // default: 3000
     host: '0.0.0.0', // default: localhost
   },
+  router: {
+    base: process.env.NODE_ENV === 'development' ? '/' : '/nuxt/',
+  },
   /*
   ** Headers of the page
   */
@@ -75,6 +78,8 @@ module.exports = {
     }
   },
   env: {
+    appName:pkg.name,
+    serverEnv:process.env.NODE_ENV,
     serverBaseUrl: 'http://118.24.127.237:8080/tblog',
   }
 }

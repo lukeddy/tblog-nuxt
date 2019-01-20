@@ -2,7 +2,7 @@
     <div id="footer">
        <div id="footer-main">
         <div class="links">
-            <strong class="env">环境：xxxx</strong>
+            <strong class="env">环境：{{appName}}|{{env}}</strong>
             |
             <a class="dark" href="/tblog/rss">RSS</a>
             |
@@ -20,6 +20,16 @@
     </div>
 </div>
 </template>
+<script>
+  export default {
+    data(){
+      return{
+        appName:process.env.appName,
+        env:process.env.serverEnv
+      }
+    }
+  }
+</script>
 <style>
   .env{
      color:tomato;
