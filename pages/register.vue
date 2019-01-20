@@ -2,13 +2,14 @@
     <div class="container main">
         <div class="col-md-9">
             <ul class="breadcrumb">
-                <li><router-link to="/">首页</router-link><span class="divider"></span></li>
+                <li><nuxt-link to="/">首页</nuxt-link><span class="divider"></span></li>
                 <li class="active">注册</li>
             </ul>
             <div class="row wrapper">
                 <div class="col-sm-3">&nbsp;</div>
                 <div class="col-sm-6">
-                    <div v-if="serverError" class="alert alert-danger">{{ serverError }}</div>
+                    <!--<div v-if="serverError" class="alert alert-danger">{{ serverError }}</div>-->
+                    <Alert v-if="alertObj" :data="alertObj"/>
                     <form action="#" @submit.prevent="register" method="post">
                         <h3 class="form-signin-header text-center">用户注册</h3>
                         <div class="form-group">
@@ -32,13 +33,14 @@
                             </div>
                             <span v-show="errors.has('email')" class="errors">{{ errors.first('email') }}</span>
                         </div>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-addon">验证码:</div>
-                                <input value="" type="text" name="validateCode" class="form-control" style="display:inline-block;width:120px;margin-right:13px;" id="validateCode">
-                                <img id="validateCodeImg" src="../assets/validateCode.jpeg">&nbsp;&nbsp;<a href="#" onclick="javascript:reloadValidateCode();">看不清？</a>
-                            </div>
-                        </div>
+                        <!--<div class="form-group">-->
+                            <!--<div class="input-group">-->
+                                <!--<div class="input-group-addon">验证码:</div>-->
+                                <!--<input value="" type="text" name="validateCode" class="form-control" style="display:inline-block;width:120px;margin-right:13px;" id="validateCode">-->
+                                <!--<img id="validateCodeImg" src="../assets/validateCode.jpeg">&nbsp;&nbsp;-->
+                                <!--<a href="#" onclick="javascript:reloadValidateCode();">看不清？</a>-->
+                            <!--</div>-->
+                        <!--</div>-->
                         <div class="btn-group btn-group-justified" role="group" aria-label="...">
                             <div class="btn-group" role="group">
                                 <button class="btn btn-success" type="submit">注册</button>
@@ -48,7 +50,7 @@
                             </div>
                         </div>
                         <br>
-                        <p>已经有账户？点击 <router-link to="/login">登录</router-link></p>
+                      <p>已经有账户？点击 <nuxt-link to="/login">登录</nuxt-link></p>
                     </form>
                 </div>
                 <div class="com-sm-3">&nbsp;</div>
@@ -59,30 +61,75 @@
 </template>
 
 <script>
-    import Advertisement from './Advertisement'
+    import Advertisement from '../components/Advertisement'
+    import Alert from '../components/Alert'
+
     export default {
         name: "Register",
         components:{
-            Advertisement
+          Advertisement,
+          Alert
+        },
+        head(){
+          return{
+            title:'注册页面',
+            meta: [
+              { hid: 'keywords', name: 'keywords',content:'注册'},
+              { hid: 'description', name: 'description', content: '注册页' }
+            ]
+          }
         },
         data(){
             return {
                 username: '',
                 password: '',
                 email:'',
-                serverError: '',
+                // serverError: '',
+                alertObj:null,
             }
         },
         methods:{
-            register(){
-                this.$validator.validateAll().then((result) => {
-                    if (result) {
-                        //TODO 调用注册Api
-
-                        return;
-                    }
-                    alert("请输入正确的账户信息")
-                });
+           async register(){
+             const result= await this.$validator.validateAll();
+             if(result){
+               try {
+                 // const params={
+                 //   username: this.username,
+                 //   password: this.password
+                 // }
+                 // const response = await this.$axios.$post('/login',params)
+                 // console.log(response)
+                 // this.alertObj=response;
+                 // if(response.status){
+                 //   console.log(response.data)
+                 //   this.$store.commit('setToken',response.data)
+                 //   this.$router.push('/')
+                 // }
+                 const params={
+                   username: this.username,
+                   password: this.password,
+                   email:this.email,
+                 }
+                 const response = await this.$axios.$post("/register", params);
+                 if(response.status){
+                   //TODO 注册成功清空表单
+                 }
+                 this.alertObj=response;
+               } catch (e) {
+                 console.log(e)
+                 this.alertObj={status:false,msg:e.message}
+               }
+             }else{
+               this.alertObj={status:false,msg:"请输入完善注册信息"}
+             }
+                // this.$validator.validateAll().then((result) => {
+                //     if (result) {
+                //         //TODO 调用注册Api
+                //
+                //         return;
+                //     }
+                //     alert("请输入正确的账户信息")
+                // });
             }
         }
     }

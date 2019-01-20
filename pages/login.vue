@@ -34,7 +34,7 @@
               </div>
             </div>
             <br>
-            <p>没有账户？点击 <router-link to="/register">注册</router-link></p>
+            <p>没有账户？点击 <nuxt-link to="/register">注册</nuxt-link></p>
           </form>
         </div>
         <div class="col-sm-3">&nbsp;</div>
