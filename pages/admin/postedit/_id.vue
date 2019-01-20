@@ -91,6 +91,7 @@
   import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 
   export default {
+    middleware: 'authenticated',
     components:{
       Alert,
       vue2Dropzone

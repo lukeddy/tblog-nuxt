@@ -49,6 +49,7 @@
     import Pagination from '../../components/common/Pagination'
 
     export default {
+        middleware: 'authenticated',
         name: "Category",
         components:{
             Pagination,

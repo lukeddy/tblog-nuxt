@@ -95,6 +95,7 @@
     import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 
     export default {
+        middleware: 'authenticated',
         name: "PostAdd",
         components:{
             Alert,

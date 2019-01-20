@@ -51,6 +51,7 @@
     import Alert from '../../components/Alert'
     import Pagination from '../../components/common/Pagination'
     export default {
+        middleware: 'authenticated',
         name: "Post",
         components:{
             Advertisement,

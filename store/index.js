@@ -3,36 +3,43 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-const index = () => new Vuex.Store({
-  state:{
-    token:null,
-    authUser:null,
-  },
-  getters:{
-    isLoggedIn(state) {
-      return state.token !== null
-    },
-    getToken(state){
-      return state.token
-    }
-  },
-  mutations: {
-    setToken(state, token) {
-      console.log('set token',token)
-      state.token = token
-    },
-    setUser(state, user) {
-      state.authUser = user
-    }
-  },
+const state = {
+  token:null,
+  authUser:null,
+}
 
-  actions: {
-    async logout({ commit }) {
-     // await axios.post('/api/logout')
-      commit('setToken', null)
-    }
+const getters = {
+  isLoggedIn(state) {
+    return state.token !== null
+  },
+  getToken(state){
+    return state.token
   }
+}
 
-})
+const mutations = {
+  setToken(state, token) {
+    console.log('set token',token)
+    state.token = token
+  },
+  setUser(state, user) {
+    state.authUser = user
+  }
+}
+
+const actions = {
+  async logout({ commit }) {
+    commit('setToken', null)
+  }
+}
+
+const index = () => {
+  return new Vuex.Store({
+    state,
+    getters,
+    mutations,
+    actions
+  })
+}
 
 export default index

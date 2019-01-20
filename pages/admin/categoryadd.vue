@@ -54,6 +54,7 @@
     import Alert from '../../components/Alert'
 
     export default {
+        middleware: 'authenticated',
         name: "CategoryAdd",
         components:{
             Advertisement,
