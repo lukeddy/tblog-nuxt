@@ -3,8 +3,8 @@
         <Advertisement/>
         <div class="col-md-9">
             <ul class="breadcrumb">
-                <li><router-link to="/">主页</router-link><span class="divider"></span></li>
-                <li><router-link to="/category">管理栏目</router-link><span class="divider"></span></li>
+                <li><nuxt-link to="/">主页</nuxt-link><span class="divider"></span></li>
+                <li><nuxt-link to="/admin/category">管理栏目</nuxt-link><span class="divider"></span></li>
                 <li class="active">新建栏目</li>
             </ul>
             <div class="panel">
@@ -50,8 +50,8 @@
 </template>
 
 <script>
-    import Advertisement from '../Advertisement'
-    import Alert from '../Alert'
+    import Advertisement from '../../components/Advertisement'
+    import Alert from '../../components/Alert'
 
     export default {
         name: "CategoryAdd",
@@ -68,28 +68,27 @@
             }
         },
         methods:{
-            addCategory(){
-                this.$validator.validateAll().then((result) => {
-                    if (result) {
-                        // this.loading = true
-                        this.$store.dispatch('addCategory', {
-                            catName: this.catName,
-                            catDir: this.catDir,
-                            catDesc:this.catDesc,
-                        })
-                        .then((response) => {
-                            //console.log(response.data)
-                            this.alertObj=response.data
-                        })
-                        .catch(error => {
-                            //this.loading = false
-                            this.alertObj={status:false,msg:error.toString()}
-                        })
-
-                        return;
+           async addCategory(){
+                const result=await this.$validator.validateAll();
+                if(result){
+                  try{
+                    this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
+                    const params={
+                      catName: this.catName,
+                      catDir: this.catDir,
+                      catDesc:this.catDesc,
                     }
-                    this.alertObj={status:false,msg:"请输入栏目信息"}
-                });
+                    const response=await this.$axios.$post('/category/add',params);
+                    if(response.status){
+                      //TODO 成功过后清空表单数据
+                    }
+                    this.alertObj=response
+                  }catch(error){
+                    this.alertObj={status:false,msg:error.message}
+                  }
+                }else{
+                  this.alertObj={status:false,msg:"请输入栏目信息"}
+                }
             }
         }
 

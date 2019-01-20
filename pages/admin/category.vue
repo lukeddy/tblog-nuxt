@@ -11,7 +11,7 @@
                     <Alert v-if="alertObj" :data="alertObj"/>
                     <div class="topic_content">
                         <div class="markdown-text">
-                            <h3>已有栏目 <router-link to="/categoryadd">新增</router-link> </h3>
+                            <h3>已有栏目 <nuxt-link to="/admin/categoryadd">新增</nuxt-link> </h3>
                             <table v-if="pager!=null" class="table">
                                 <tbody><tr>
                                     <th>栏目名称</th>
@@ -26,7 +26,7 @@
                                     <td>{{cat.createAtFormatted}}</td>
                                     <td>{{cat.updateAtFormatted}}</td>
                                     <td>
-                                        <router-link class="title" v-bind:to="'/categoryedit/'+cat.id">修改</router-link>
+                                        <nuxt-link class="title" v-bind:to="'/admin/categoryedit/'+cat.id">修改</nuxt-link>
                                     </td>
                                 </tr>
                                 </tbody>
