@@ -3,7 +3,7 @@
         <Advertisement/>
         <div class="col-md-9">
             <ul class="breadcrumb">
-                <li><router-link to="/">首页</router-link><span class="divider"></span></li>
+                <li><nuxt-link to="/">首页</nuxt-link><span class="divider"></span></li>
                 <li class="active">帖子管理</li>
             </ul>
             <div class="panel">
@@ -47,9 +47,9 @@
 </template>
 
 <script>
-    import Advertisement from '../Advertisement'
-    import Alert from '../Alert'
-    import Pagination from '../common/Pagination'
+    import Advertisement from '../../components/Advertisement'
+    import Alert from '../../components/Alert'
+    import Pagination from '../../components/common/Pagination'
     export default {
         name: "Post",
         components:{
@@ -65,39 +65,49 @@
             }
         },
         mounted:function(){
-            this.loadData();
+            this.loadData(this.currentPage);
         },
         methods:{
-            loadData(){
-                this.$store.dispatch('listPost', {
-                    pageNO: this.currentPage,
-                }).then((response) => {
-                    this.pager=response.data.data
-                })
-                .catch(error => {
-                    this.alertObj={status:false,msg:error.toString()}
-                })
+           async loadData(pageNumber){
+              try{
+                this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
+                const params={
+                  pageNO:pageNumber
+                }
+                const response=await this.$axios.$post('/post/list',params);
+                // console.log('categorys:',response)
+                if(response.status){
+                  this.pager=response.data
+                }
+              }catch(error){
+                this.alertObj={status:false,msg:error.message}
+              }
             },
-            deletePost(postId){
-                this.$store.dispatch('delPost', {
-                    id:postId,
-                }).then((response) => {
-                    this.alertObj=response.data
-                    this.loadData()
-                }).catch(error => {
-                    this.alertObj={status:false,msg:error.toString()}
-                })
+           async deletePost(postId){
+              try{
+                this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
+                const params={
+                  id:postId
+                }
+                const response=await this.$axios.delete('/post/'+params.id,params);
+                console.log('delete post:',response)
+                this.alertObj=response.data
+                this.loadData(this.currentPage)
+              }catch(error){
+                this.alertObj={status:false,msg:error.message}
+              }
+                // this.$store.dispatch('delPost', {
+                //     id:postId,
+                // }).then((response) => {
+                //     this.alertObj=response.data
+                //     this.loadData()
+                // }).catch(error => {
+                //     this.alertObj={status:false,msg:error.toString()}
+                // })
+
             },
             jumpPage(pageNo){
-                this.$store.dispatch('listPost', {
-                    pageNO: pageNo,
-                }).then((response) => {
-                    this.pager=response.data.data
-                    this.currentPage=pageNo
-                })
-                .catch(error => {
-                    this.alertObj={status:false,msg:error.toString()}
-                })
+                this.loadData(pageNo)
             }
         }
     }
