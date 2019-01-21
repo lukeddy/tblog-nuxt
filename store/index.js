@@ -33,6 +33,7 @@ const mutations = {
 const actions = {
   async logout({ commit }) {
     commit('setToken', null)
+    commit('setUser',null)
   }
 }
 
