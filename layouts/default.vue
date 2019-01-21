@@ -12,6 +12,13 @@
     components: {
       Navbar,
       Footer
+    },
+    mounted(){
+      this.$store.subscribe((mutation, state) => {
+        if(state.popStatus){
+          this.$swal('请先登录');
+        }
+      })
     }
   }
 </script>
@@ -69,5 +76,8 @@
   .errors{
     color:red;
     font-size:12px;
+  }
+  .customize-swal2-container{
+    z-index:2000 !important;
   }
 </style>

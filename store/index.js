@@ -6,6 +6,7 @@ Vue.use(Vuex)
 const state = {
   token:null,
   authUser:null,
+  popStatus:false
 }
 
 const getters = {
@@ -17,6 +18,9 @@ const getters = {
   },
   getUser(state){
     return state.authUser
+  },
+  getPopStatus(state){
+    return state.popStatus
   }
 }
 
@@ -27,6 +31,9 @@ const mutations = {
   },
   setUser(state, user) {
     state.authUser = user
+  },
+  setPopStatus(state, popStatus) {
+    state.popStatus = popStatus
   }
 }
 
@@ -34,6 +41,9 @@ const actions = {
   async logout({ commit }) {
     commit('setToken', null)
     commit('setUser',null)
+  },
+  async showLoginAlert({commit},status){
+    commit("setPopStatus",status)
   }
 }
 

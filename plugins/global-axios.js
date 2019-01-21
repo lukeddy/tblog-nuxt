@@ -21,9 +21,10 @@ export default function ({ $axios,store,redirect }) {
       if (code === 401 && !originalRequest._retry) {
         console.log('401',response)
         originalRequest._retry = true
-        store.dispatch('logout')
+        //store.dispatch('logout')
+        store.dispatch('showLoginAlert',true)
         // window.location.href = "/login";
-        redirect('/login')
+        //redirect('/login')
       }
 
       return Promise.reject(error)

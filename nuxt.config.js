@@ -53,7 +53,8 @@ module.exports = {
   plugins: [
     { src: '~/plugins/vee-validate' },
     { src: '~/plugins/mavon-editor' },
-    { src:'~/plugins/global-axios'}
+    { src: '~/plugins/global-axios' },
+    { src: '~/plugins/vue-sweetalert' ,ssr: false }
   ],
 
   /*
