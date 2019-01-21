@@ -15,8 +15,13 @@
     },
     mounted(){
       this.$store.subscribe((mutation, state) => {
-        if(state.popStatus){
-          this.$swal('请先登录');
+        console.log('mutation:',mutation)
+        if(mutation.type==='setPopStatus'&&state.popStatus){
+          this.$swal({title:'请先登录',
+            onClose: () => {
+              this.$store.dispatch('showLoginAlert',false)
+            }
+          });
         }
       })
     }
