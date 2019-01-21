@@ -87,8 +87,9 @@
             this.alertObj=response;
             if(response.status){
               console.log(response.data)
-              this.$store.commit('setToken',response.data)
-              this.$axios.setToken(response.data)
+              this.$store.commit('setToken',response.data.token)
+              this.$store.commit('setUser',response.data.userInfo)
+              this.$axios.setToken(response.data.token)
               this.$router.push('/')
             }
           } catch (e) {

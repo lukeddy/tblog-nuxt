@@ -14,6 +14,9 @@ const getters = {
   },
   getToken(state){
     return state.token
+  },
+  getUser(state){
+    return state.authUser
   }
 }
 

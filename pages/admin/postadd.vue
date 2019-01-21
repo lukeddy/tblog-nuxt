@@ -104,8 +104,6 @@
         data(){
             return {
                 allCategory:[],
-                authorId:'',
-                authorName:'',
                 catId:'',
                 title: '',
                 desc: '',
@@ -151,19 +149,6 @@
               }catch(error){
                 this.alertObj={status:false,msg:error.message}
               }
-
-              try{
-                const response=await this.$axios.$get('/user/info');
-                console.log('userinfo:', response)
-                if(response.status){
-                  this.authorId=response.data.uid
-                  this.authorName=response.data.username
-                }else{
-                  this.alertObj=response
-                }
-              }catch(error){
-                this.alertObj={status:false,msg:error.message}
-              }
             },
             async addPost(){
                 const result=this.$validator.validateAll()
@@ -171,8 +156,8 @@
                   try{
                     //this.$axios.defaults.headers.common['Authorization'] = this.$store.state.token
                     const params={
-                          authorId:this.authorId,
-                          authorName:this.authorName,
+                          authorId:this.$store.getters.getUser.uid,
+                          authorName:this.$store.getters.getUser.username,
                           catId:this.catId,
                           title: this.title,
                           desc: this.desc,
