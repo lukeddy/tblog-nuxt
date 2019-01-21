@@ -52,7 +52,8 @@ module.exports = {
   */
   plugins: [
     { src: '~/plugins/vee-validate' },
-    { src: '~/plugins/mavon-editor' }
+    { src: '~/plugins/mavon-editor' },
+    { src:'~/plugins/global-axios'}
   ],
 
   /*
@@ -67,7 +68,8 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    baseURL:serverApiUrl
+    baseURL:serverApiUrl,
+    validateStatus: (status) => status >= 200 && status < 500,
   },
 
   /*

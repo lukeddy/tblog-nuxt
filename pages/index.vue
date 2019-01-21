@@ -45,7 +45,7 @@
         }
         try{
             const response = await this.$axios.$post('/home',params)
-            console.log(response)
+            //console.log(response)
             if(response.status){
               this.catList=response.data.catList
               this.pager=response.data.pager
