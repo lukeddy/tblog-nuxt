@@ -78,7 +78,7 @@
           <span class="col_fade">文章缩略图</span>
         </div>
         <div class="inner">
-          <vue2Dropzone ref="myDropZone" id="dropzone" :style="{backgroundSize:'cover',backgroundImage:'url('+this.thumbBG+')'}" :options="dropzoneOptions" v-on:vdropzone-success="dropzoneSuccess" class="dropzone needsclick dz-clickable"></vue2Dropzone>
+          <Dropzone ref="myDropZone" id="dropzone" :style="{backgroundSize:'cover',backgroundImage:'url('+this.thumbBG+')'}" :options="dropzoneOptions" :destroyDropzone="true" class="dropzone needsclick dz-clickable"/>
         </div>
       </div>
     </div>
@@ -87,14 +87,14 @@
 
 <script>
   import Alert from '../../../components/Alert'
-  import vue2Dropzone from 'vue2-dropzone'
-  import 'vue2-dropzone/dist/vue2Dropzone.min.css'
+  import Dropzone from 'nuxt-dropzone'
+  import 'nuxt-dropzone/dropzone.css'
 
   export default {
     middleware: 'authenticated',
     components:{
       Alert,
-      vue2Dropzone
+      Dropzone
     },
     validate ({ params }) {
       //验证是否合规的ID
@@ -118,6 +118,7 @@
           maxFilesize: 2,
           maxFiles:1,
           headers: {'Access-Control-Allow-Origin': '*','Authorization':this.$store.getters.getToken },
+          success:this.dropzoneSuccess
         },
         alertObj:null,
       }
