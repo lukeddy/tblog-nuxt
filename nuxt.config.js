@@ -89,5 +89,8 @@ module.exports = {
     serverEnv:process.env.NODE_ENV,
     serverBaseUrl:serverBaseUrl,
     serverApiUrl:serverApiUrl
-  }
+  },
+  generate: {
+    fallback: "404.html"
+  },
 }
