@@ -44,7 +44,7 @@
         </div>
       </div>
       <!--no-ssr声明此组件仅在客户端呈现,不做服务端渲染 -->
-      <no-ssr placeholder="Loading...">
+      <no-ssr placeholder="评论加载中...">
         <Comment/>
       </no-ssr>
     </div>
