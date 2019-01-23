@@ -34,17 +34,27 @@
         alertObj:null,
       }
     },
-    mounted:function(){
-      this.loadData(this.currentPage,this.currentTab);
+    async asyncData({$axios}){
+      try{
+        const params={pageNO: 1,tab:"all"}
+        const {status,msg,data:{catList,pager,indexVo}} = await $axios.$post('/home',params)
+        //console.log('async data:',status,catList,pager,indexVo)
+        if(status){
+          return {catList:catList,pager:pager,currentTab:indexVo.tab,alertObj:null}
+        }else{
+          return {alertObj:{status:false,msg:msg}}
+        }
+      }catch(error){
+        return {alertObj:{status:false,msg:error.message}}
+      }
     },
     methods:{
      async loadData(pageNo,tab){
-        const params={
-          pageNO: pageNo,
-          tab:tab
-        }
         try{
-            const response = await this.$axios.$post('/home',params)
+            const response = await this.$axios.$post('/home',{
+              pageNO: pageNo,
+              tab:tab
+            })
             //console.log(response)
             if(response.status){
               this.catList=response.data.catList

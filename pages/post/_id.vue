@@ -43,10 +43,10 @@
           </div>
         </div>
       </div>
-      <div v-if="post==null" class="text-center">
-        帖子内容为空
-      </div>
-      <Comment></Comment>
+      <!--no-ssr声明此组件仅在客户端呈现,不做服务端渲染 -->
+      <no-ssr placeholder="Loading...">
+        <Comment/>
+      </no-ssr>
     </div>
     <Advertisement/>
   </div>
@@ -86,18 +86,19 @@
         alertObj:null,
       }
     },
-
-    mounted:function () {
-      const {id}=this.$route.params
-      this.loadData(id);
+    async asyncData({$axios,params}){
+      try{
+        const {status,data,msg}= await $axios.$get('/post/detail/'+params.id);
+        //console.log(data)
+        if(status){
+          return {post:data}
+        }else{
+          return {alertObj:{status:false,msg:msg}}
+        }
+      }catch(error){
+        return {alertObj:{status:false,msg:error.message}}
+      }
     },
-    methods:{
-      async loadData(id){
-        const response= await this.$axios.$get('/post/detail/'+id);
-        console.log(response)
-        this.post=response.data;
-      },
-    }
   }
 </script>
 

@@ -1,8 +1,8 @@
 const pkg = require('./package')
 
 const isDevMode=process.env.NODE_ENV === 'development'
-const serverBaseUrl=isDevMode ? 'http://localhost:8080/tblog':'http://118.24.127.237:8080/tblog'
-const serverApiUrl=isDevMode ? 'http://localhost:8080/tblog/api':'http://118.24.127.237:8080/tblog/api'
+const serverBaseUrl=isDevMode ? 'http://118.24.127.237:8080/tblog':'http://118.24.127.237:8080/tblog'
+const serverApiUrl=isDevMode ? 'http://118.24.127.237:8080/tblog/api':'http://118.24.127.237:8080/tblog/api'
 
 module.exports = {
   mode: 'universal',
@@ -52,8 +52,8 @@ module.exports = {
   */
   plugins: [
     { src: '~/plugins/vee-validate' },
-    { src: '~/plugins/mavon-editor' },
     { src: '~/plugins/global-axios' },
+    { src: '~/plugins/mavon-editor' ,ssr: false },
     { src: '~/plugins/vue-sweetalert' ,ssr: false }
   ],
 
