@@ -40,7 +40,7 @@
             <div class="form-group">
               <div class="input-group">
                 <div class="input-group-addon">标签:</div>
-                <input type="text" name="tags" v-model="post.tags" class="form-control" placeholder="输入标签" value="">
+                <input type="text" name="tags" v-model="tagStr" class="form-control" placeholder="输入标签" value="">
               </div>
               <span class="label-info">注意：标签使用英文逗号分隔</span>
             </div>
@@ -104,6 +104,8 @@
       return {
         allCategory:[],
         post:null,
+        tagStr:null,
+        tagsArr:[],
         thumbBG:null,
         dropzoneOptions: {
           url: process.env.serverApiUrl+'/upload/file',
@@ -123,6 +125,11 @@
         alertObj:null,
       }
     },
+    watch:{
+      tagStr(newTags, oldTags) {
+        this.tagsArr=newTags.split(",")
+      }
+    },
     mounted:function(){
       const {id}=this.$route.params
       console.log(id)
@@ -138,6 +145,7 @@
           console.log('all category:', response)
           if(response.status){
             this.post=response.data
+            this.tagStr=this.post.tags.join(',')
             this.thumbBG=process.env.serverBaseUrl+this.post.thumbURL
           }else{
             this.alertObj=response
@@ -169,7 +177,7 @@
               catId:this.post.category.id,
               title: this.post.title,
               desc: this.post.desc,
-              tags:this.post.tags?this.post.tags.join(", "):'',
+              tags: this.tagStr,
               thumbURL:this.post.thumbURL,
               contentMD:this.post.contentMD,
               contentHTML:this.$refs.editor.d_render,
