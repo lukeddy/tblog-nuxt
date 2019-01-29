@@ -1,15 +1,10 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-
-Vue.use(Vuex)
-
-const state = {
+export const state = () => ({
   token:null,
   authUser:null,
   popStatus:false
-}
+})
 
-const getters = {
+export const getters = {
   isLoggedIn(state) {
     return state.token !== null
   },
@@ -24,7 +19,7 @@ const getters = {
   }
 }
 
-const mutations = {
+export const mutations = {
   setToken(state, token) {
     console.log('set token',token)
     state.token = token
@@ -37,7 +32,7 @@ const mutations = {
   }
 }
 
-const actions = {
+export const actions = {
   async logout({ commit }) {
     commit('setToken', null)
     commit('setUser',null)
@@ -47,13 +42,3 @@ const actions = {
   }
 }
 
-const index = () => {
-  return new Vuex.Store({
-    state,
-    getters,
-    mutations,
-    actions
-  })
-}
-
-export default index
