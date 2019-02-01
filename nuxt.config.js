@@ -53,8 +53,9 @@ module.exports = {
   plugins: [
     { src: '~/plugins/vee-validate' },
     { src: '~/plugins/global-axios' },
-    { src: '~/plugins/mavon-editor' ,ssr: false },
-    { src: '~/plugins/vue-sweetalert' ,ssr: false }
+    { src: '~/plugins/mavon-editor' ,mode: 'client' },
+    { src: '~/plugins/vue-sweetalert' ,mode: 'client' },
+    { src: '~/plugins/copy-right' ,mode: 'client' }
   ],
 
   /*
