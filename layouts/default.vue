@@ -8,6 +8,8 @@
 <script>
   import Navbar from '../components/Navbar'
   import Footer from '../components/Footer'
+  import {runFavicon} from '../utils/CommonMethods'
+
   export default {
     components: {
       Navbar,
@@ -23,8 +25,12 @@
             }
           });
         }
-      })
-    }
+      });
+
+      //update favico
+      runFavicon();
+    },
+
   }
 </script>
 <style>
