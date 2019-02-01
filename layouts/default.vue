@@ -8,7 +8,7 @@
 <script>
   import Navbar from '../components/Navbar'
   import Footer from '../components/Footer'
-  import {runFavicon} from '../utils/CommonMethods'
+  import {runFavicon} from '../utils/FavicoUtils'
 
   export default {
     components: {
